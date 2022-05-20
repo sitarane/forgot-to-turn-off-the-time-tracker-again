@@ -1,0 +1,51 @@
+#!/usr/bin/ruby
+
+puts "Warning: this assumes you stopped the counter when you arrived at work"
+
+puts "What hour did you leave yesterday? (you'll enter minutes next)"
+yesterday_hour = gets.chomp
+
+puts "What minute?"
+yesterday_minute = gets.chomp
+
+puts "You left at #{yesterday_hour}:#{yesterday_minute} yesterday."
+
+puts "What hour did you arrive today?"
+today_hour = gets.chomp
+
+puts "What minute?"
+today_minute = gets.chomp
+
+puts "You arrived at #{today_hour}:#{today_minute} today."
+
+yesterday = Time.new(Time.new.year, Time.new.month, Time.new.day - 1, yesterday_hour, yesterday_minute)
+
+today = Time.new(Time.new.year, Time.new.month, Time.new.day, today_hour, today_minute)
+
+decimal_hours = (today - yesterday) / 3600
+
+hours = decimal_hours.floor
+
+minutes = ((decimal_hours - hours) * 60).round
+
+puts "The counter has run #{hours}:#{minutes} after you left."
+
+puts "What hour is the counter showing?"
+counter_hour = gets.chomp
+
+puts "What minute is the counter showing"
+counter_minute = gets.chomp
+
+puts "The counter is at #{counter_hour}:#{counter_minute}."
+
+counter = Time.new(Time.new.year, Time.new.month, Time.new.day, counter_hour, counter_minute)
+
+extra = Time.new(Time.new.year, Time.new.month, Time.new.day, hours, minutes)
+
+should_be_decimal_hours = (counter - extra) / 3600
+
+should_be_hours = should_be_decimal_hours.floor
+
+should_be_minutes = ( ( should_be_decimal_hours - should_be_hours) * 60 ).round
+
+puts "Set counter to #{should_be_hours}:#{should_be_minutes}."
